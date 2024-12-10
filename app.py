@@ -1,30 +1,31 @@
-from flask import Flask, render_template, redirect, url_for, flash
+from flask import Flask, render_template, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import DataRequired, Email
+from wtforms.validators import DataRequired, Email, ValidationError
 import bcrypt
-import pyodbc
+from flask_sqlalchemy import SQLAlchemy
 
+# Initialize Flask app
 app = Flask(__name__)
 
-# MSSQL Database configuration
-app.config['MSSQL_SERVERNAME'] = 'your_server_name'  # Update with your server name
-app.config['MSSQL_DATABASE'] = 'your_database_name'  # Update with your database name
-app.config['MSSQL_USERNAME'] = 'your_username'  # Update with your database username
-app.config['MSSQL_PASSWORD'] = 'your_password'  # Update with your database password
-app.secret_key = 'your_secret_key'  # Add a secret key for CSRF protection
+# PostgreSQL URI configuration (Replace with your actual credentials)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/dbname'  # Update with your PostgreSQL details
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Disable modification tracking (for performance)
 
-# Connect to MSSQL database using pyodbc
-def get_db_connection():
-    conn = pyodbc.connect(
-        'DRIVER={ODBC Driver 17 for SQL Server};'
-        f'SERVER={app.config["MSSQL_SERVERNAME"]};'
-        f'DATABASE={app.config["MSSQL_DATABASE"]};'
-        f'UID={app.config["MSSQL_USERNAME"]};'
-        f'PWD={app.config["MSSQL_PASSWORD"]}'
-    )
-    return conn
+# Initialize the database
+db = SQLAlchemy(app)
 
+# Define the User model for PostgreSQL database
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(128), nullable=False)
+
+    def __repr__(self):
+        return f'<User {self.name}>'
+
+# Define Flask-WTF form for user registration
 class RegisterForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
@@ -42,27 +43,19 @@ def register():
         name = form.name.data
         email = form.email.data
         password = form.password.data
+        
+        # Hash the password using bcrypt
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
-        # Hash the password
-        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        # Create a new User object
+        new_user = User(name=name, email=email, password=hashed_password)
 
-        # Insert the new user into the database using pyodbc
-        try:
-            conn = get_db_connection()
-            cursor = conn.cursor()
-            cursor.execute(
-                "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
-                (name, email, hashed_password.decode('utf-8'))
-            )
-            conn.commit()  # Commit the transaction
-            cursor.close()
+        # Add the new user to the database
+        db.session.add(new_user)
+        db.session.commit()
 
-            flash('Registration successful!', 'success')
-            return redirect(url_for('dashboard'))  # Redirect to dashboard after successful registration
-        except Exception as e:
-            flash(f'Error: {e}', 'danger')
-            return redirect(url_for('register'))  # Stay on the register page if there is an error
-
+        # Redirect to dashboard after successful registration
+        return redirect(url_for('dashboard'))
     return render_template('register.html', form=form)
 
 @app.route('/login')

@@ -11,5 +11,8 @@ install: pip install Flask Flask-WTF wtforms bcrypt
 
 install:  pip install pyodbc flask_sqlalchemy  #for common database
 
+pip install flask psycopg2 flask-sqlalchemy #postgress
+
+
 
 

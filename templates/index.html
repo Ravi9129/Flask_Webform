@@ -1,1 +1,766 @@
-<h1>Home Page</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KYC Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+</head>
+<body>
+
+<style>
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: black;
+  }
+  
+  .form-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: left;
+    margin-bottom: 20px;
+    padding: 30px;
+    background-color: #918e8e;
+  }
+  
+  form fieldset {
+    border: none;
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    margin: 2px 20px 20px 20px;
+    padding: 20px;
+    font-weight: bold;
+    color: black;
+    background-color: #918e8e;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .flex-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .flex-group > div {
+    flex: 1;
+  }
+  
+  .date-wrapper {
+    display: flex;
+    align-items: center;
+    max-width: 30%;
+    position: relative;
+  }
+  
+  .date-input {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: 0.2s all ease;
+  }
+  
+  .date-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+  }
+  
+  .form-heading {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+  }
+  
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: rgb(35, 34, 34);
+  }
+  
+  .radio-group label {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .radio-group input[type="radio"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #007bff;
+    border-radius: 50%;
+    outline: none;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: 0.2s all ease;
+  }
+  
+  .radio-group input[type="radio"]:checked {
+    background-color: #007bff;
+    border-color: #0056b3;
+  }
+  
+  .select-input {
+    display: flex;
+    align-items: center;
+    max-width: 30%;
+    position: relative;
+  }
+  
+  select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    color: white;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #218838;
+  }
+  /* Additional Styling for Address Details */
+.form-group {
+    margin-bottom: 20px; /* Adds spacing below each section */
+  }
+  
+  /* Flexbox for Address sections */
+  .flex-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  /* Styling for Text and Select Inputs */
+  input[type="text"], input[type="tel"], input[type="email"], input[type="file"], select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-top: 5px;
+  }
+  
+  /* Phone number validation */
+  input[type="tel"]:invalid {
+    border-color: red;
+  }
+  
+  /* Select2 for Country Dropdown */
+  .select-input {
+    width: 100%;
+    padding: 8px;
+    font-size: 1rem;
+  }
+  
+  /* Add spacing for small text under phone input */
+  small {
+    display: block;
+    margin-top: 5px;
+    color: #888;
+  }
+/* Additional Styling for Address Details */
+.form-group {
+    margin-bottom: 20px; /* Adds spacing below each section */
+  }
+  
+  /* Flexbox for Address sections */
+  .flex-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  /* Styling for Text and Select Inputs */
+  input[type="text"], input[type="tel"], input[type="email"], input[type="file"], select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-top: 5px;
+  }
+  
+  /* Phone number validation */
+  input[type="tel"]:invalid {
+    border-color: red;
+  }
+  
+  /* Add spacing for small text under phone input */
+  small {
+    display: block;
+    margin-top: 5px;
+    color: #888;
+  }
+  
+  /* Checkbox group styling */
+  .checkbox-group {
+    margin-top: 10px;
+  }
+  
+  .checkbox-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1rem;
+  }
+  
+  .checkbox-group input[type="checkbox"] {
+    margin-right: 1px;
+  }
+  /* Styling for File Upload Section */
+.file-upload-area {
+    border: 2px dashed #007bff;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .file-upload-area p {
+    color: #007bff;
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .file-upload-area:hover {
+    background-color: #f0f8ff;
+  }
+  
+  /* Styling for file input field (hidden) */
+  input[type="file"] {
+    display: none;
+  }
+  
+  /* Optional: File Drag and Drop Feedback */
+  .file-upload-area.dragover {
+    background-color: #e9f7fd;
+    border-color: #0056b3;
+  }
+  
+  .file-upload-area.dragover p {
+    color: #0056b3;
+  }
+/* Styling for Declaration Section */
+fieldset {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  p {
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.5;
+    margin: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+/* Styling for Name Fields */
+.input-group {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .input-group input {
+    width: 48%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Styling for Signature Section */
+  #signature {
+    width: 100%;
+    height: 150px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+  }
+  
+  #clear-signature {
+    background-color: #f44336;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  #clear-signature:hover {
+    background-color: #d32f2f;
+  }
+  
+  /* Date Signed */
+  .form-group input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  
+
+</style>
+
+  <div class="form-container">
+    <h1>KYC Form</h1>
+    <form id="kycForm">
+      <!-- Section A: Identity Details -->
+      <fieldset>
+        <h2>A. Identity Details</h2>
+        <div class="form-group">
+          <label>1. Name of the Applicant</label>
+          <div class="input-group">
+            <input type="text" placeholder="First Name" id="firstName" required>
+            <input type="text" placeholder="Last Name" id="lastName" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>2. Father's/Spouse's Name</label>
+          <div class="input-group">
+            <input type="text" placeholder="First Name" id="fatherFirstName" required>
+            <input type="text" placeholder="Last Name" id="fatherLastName" required>
+          </div>
+        </div>
+        <div class="form-group flex-group">
+          <!-- Gender Section -->
+          <div>
+            <label class="form-heading">2a. Gender</label>
+            <div class="radio-group">
+              <label>
+                <input type="radio" id="male" name="gender" value="Male" required>
+                Male
+              </label>
+              <label>
+                <input type="radio" id="female" name="gender" value="Female" required>
+                Female
+              </label>
+            </div>
+          </div>
+
+          <!-- Marital Status Section -->
+          <div>
+            <label class="form-heading">2b. Marital Status</label>
+            <div class="radio-group">
+              <label>
+                <input type="radio" id="single" name="marital-status" value="Single" required>
+                Single
+              </label>
+              <label>
+                <input type="radio" id="married" name="marital-status" value="Married" required>
+                Married
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Date of Birth Section -->
+        <div class="form-group">
+          <label class="form-heading">2c. Date of Birth</label>
+          <div class="date-wrapper">
+            <input type="date" id="dob" name="dob" required class="date-input">
+          </div>
+        </div>
+
+        <!-- Nationality Section -->
+        <div class="form-group">
+          <label class="form-heading">3. Nationality</label>
+          <select id="nationality" name="nationality" required class="select-input">
+            <option value="" disabled selected>Select your country</option>
+            <option value="india">India</option>
+            <option value="usa">United States</option>
+            <option value="uk">United Kingdom</option>
+            <option value="canada">Canada</option>
+            <option value="australia">Australia</option>
+            <option value="germany">Germany</option>
+            <option value="france">France</option>
+            <option value="brazil">Brazil</option>
+            <option value="japan">Japan</option>
+            <option value="china">China</option>
+          </select>
+        </div>
+
+        <!-- City Section -->
+        <div class="form-group">
+          <label class="form-heading">4. City</label>
+          <select id="city" name="city" required class="select-input">
+            <option value="" disabled selected>Search for a city</option>
+          </select>
+        </div>
+
+        <!-- Status Section -->
+        <div class="form-group">
+          <label class="form-heading">5. Status</label>
+          <div class="radio-group">
+            <label>
+              <input type="radio" name="status" value="Resident" required /> Resident
+            </label>
+            <label>
+              <input type="radio" name="status" value="Non-Resident" /> Non-Resident
+            </label>
+            <label>
+              <input type="radio" name="status" value="Foreign" /> Foreign
+            </label>
+          </div>
+        </div>
+
+        <!-- PAN Input Section -->
+      <!-- PAN Input Section -->
+    <div class="form-group">
+        <label for="pan">6. PAN Number</label>
+        <input type="text" id="pan" name="pan" placeholder="Enter your PAN number" required>
+    </div>
+  
+        <!-- Proof of Identity Section -->
+        <div class="form-group">
+          <label class="form-heading">7. Proof of Identity Submitted</label>
+          <div class="radio-group">
+            <label>
+              <input type="radio" name="identityProof" value="UID" required> UID
+            </label>
+            <label>
+              <input type="radio" name="identityProof" value="Passport"> Passport
+            </label>
+            <label>
+              <input type="radio" name="identityProof" value="Voter ID"> Voter ID
+            </label>
+            <label>
+              <input type="radio" name="identityProof" value="Driver License"> Driver License
+            </label>
+            <label>
+              <input type="radio" name="identityProof" value="Other"> Other
+            </label>
+          </div>
+          <div id="otherIdentityProof" class="form-group" style="display: none;">
+            <label for="otherProof">Please specify:</label>
+            <input type="text" id="otherProof" name="otherProof" placeholder="Specify other identity proof">
+          </div>
+        </div>
+        
+        <!-- Address Details Section -->
+<fieldset>
+    <h2>5. Address Details</h2>
+  
+    <!-- Address for Correspondence -->
+    <div class="form-group">
+      <label for="street1">1. Address for Correspondence</label>
+      <input type="text" id="street1" name="street1" placeholder="Street Address" required>
+      <input type="text" id="street2" name="street2" placeholder="Street Address Line 2" required>
+    </div>
+  
+    <!-- City, State, Postal Code -->
+    <div class="form-group flex-group">
+      <div>
+        <label for="city">City</label>
+        <input type="text" id="city" name="city" placeholder="City" required>
+      </div>
+      <div>
+        <label for="state">State / Province</label>
+        <input type="text" id="state" name="state" placeholder="State / Province" required>
+      </div>
+      <div>
+        <label for="postal">Postal / Zip Code</label>
+        <input type="text" id="postal" name="postal" placeholder="Postal / Zip Code" required>
+      </div>
+    </div>
+  
+    <!-- Phone Number Section -->
+    <div class="form-group">
+      <label for="phone">2. Phone Number</label>
+      <input type="tel" id="phone" name="phone" placeholder="(000) 000-0000" required pattern="(\d{3}) \d{3}-\d{4}">
+      <small>Please enter a valid phone number.</small>
+    </div>
+  
+    <!-- Email Section -->
+    <div class="form-group">
+      <label for="email">3. Email</label>
+      <input type="email" id="email" name="email" placeholder="example@example.com" required>
+    </div>
+  
+    <!-- Proof of Address Section -->
+    <div class="form-group">
+      <label>4. Proof of Address to be Provided by Applicant</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="proof-address" value="passport"> Passport</label><br>
+        <label><input type="checkbox" name="proof-address" value="driving-license"> Driving License</label><br>
+        <label><input type="checkbox" name="proof-address" value="lease-agreement"> Registered Lease/Sale Agreement of Residence</label><br>
+        <label><input type="checkbox" name="proof-address" value="telephone-bill"> Latest Telephone Bill</label><br>
+        <label><input type="checkbox" name="proof-address" value="bank-statement"> Latest Bank Account Statement/Passbook</label>
+      </div>
+    </div>
+  
+    <!-- Permanent Address if Different -->
+    <div class="form-group">
+      <label for="permanent-address">5. Permanent Address of Resident Applicant If Different From Above</label>
+      <input type="text" id="permanent-street1" name="permanent-street1" placeholder="Street Address" required>
+      <input type="text" id="permanent-street2" name="permanent-street2" placeholder="Street Address Line 2" required>
+    </div>
+  
+    <!-- City, State, Postal Code for Permanent Address -->
+    <div class="form-group flex-group">
+      <div>
+        <label for="permanent-city">City</label>
+        <input type="text" id="permanent-city" name="permanent-city" placeholder="City" required>
+      </div>
+      <div>
+        <label for="permanent-state">State / Province</label>
+        <input type="text" id="permanent-state" name="permanent-state" placeholder="State / Province" required>
+      </div>
+      <div>
+        <label for="permanent-postal">Postal / Zip Code</label>
+        <input type="text" id="permanent-postal" name="permanent-postal" placeholder="Postal / Zip Code" required>
+      </div>
+    </div>
+  
+    <!-- Proof of Address for Permanent Address Section -->
+    <div class="form-group">
+      <label>6. Proof of Address to be Provided by Applicant for Permanent Address</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="proof-permanent-address" value="passport"> Passport</label><br>
+        <label><input type="checkbox" name="proof-permanent-address" value="driving-license"> Driving License</label><br>
+        <label><input type="checkbox" name="proof-permanent-address" value="lease-agreement"> Registered Lease/Sale Agreement of Residence</label><br>
+        <label><input type="checkbox" name="proof-permanent-address" value="telephone-bill"> Latest Telephone Bill</label><br>
+        <label><input type="checkbox" name="proof-permanent-address" value="bank-statement"> Latest Bank Account Statement/Passbook</label>
+      </div>
+    </div>
+  </fieldset>
+
+   <!-- File Upload Section -->
+<fieldset>
+    <h2>C. File Upload</h2>
+    
+    <div class="form-group">
+      <label for="file-upload"></label>
+      <div id="file-upload" class="file-upload-area">
+        <p>Drag your files here or click to select files.</p>
+        <input type="file" id="file-input" name="file-input" multiple />
+      </div>
+    </div>
+  </fieldset>
+  <!-- Declaration Section -->
+<!-- Declaration Section -->
+<fieldset>
+    <h2>D. Declaration</h2>
+    
+    <p>
+      I hereby declare that the information provided in this form is accurate and complete. I confirm that any information found incorrect and/or incomplete that leads to a violation of regulations may initiate legal actions, and I accept that I am the responsible party for any and all charges, penalties, and violations.
+    </p>
+    
+    <!-- Name Fields (First and Last Name) -->
+    <div class="form-group">
+      <label for="first-name">Name of Applicant</label>
+      <div class="input-group">
+        <input type="text" id="first-name" placeholder="First Name" required>
+        <input type="text" id="last-name" placeholder="Last Name" required>
+      </div>
+    </div>
+    
+    <!-- Signature Section -->
+    <div class="form-group">
+      <label for="signature">Signature of the Applicant</label>
+      <canvas id="signature" width="300" height="150" style="border: 1px solid #ccc;"></canvas>
+      <br />
+      <button type="button" id="clear-signature">Clear Signature</button>
+    </div>
+    
+    <!-- Date Signed Section -->
+    <div class="form-group">
+      <label for="date-signed">Date Signed</label>
+      <input type="date" id="date-signed" name="date-signed" required />
+    </div>
+  </fieldset>
+  
+
+  
+
+
+        <button type="submit">Submit</button>
+      </fieldset>
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+  <script >
+
+    document.querySelector('#kycForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+    
+        // Basic Form Validation
+        const firstName = document.querySelector('#firstName').value;
+        const lastName = document.querySelector('#lastName').value;
+        const gender = document.querySelector('input[name="gender"]:checked');
+        const maritalStatus = document.querySelector('input[name="marital-status"]:checked');
+        const dob = document.querySelector('#dob').value;
+        const nationality = document.querySelector('#nationality').value;
+        const city = document.querySelector('#city').value;
+        const status = document.querySelector('input[name="status"]:checked');
+        const pan = document.querySelector('#pan').value;
+        const identityProof = document.querySelector('input[name="identityProof"]:checked');
+        
+        if (!firstName || !lastName || !gender || !maritalStatus || !dob || !nationality || !city || !status || !pan || !identityProof) {
+            alert('Please fill in all required fields!');
+            return;
+        }
+    
+        if (identityProof.value === 'Other' && !document.querySelector('#otherProof').value) {
+            alert('Please specify other identity proof!');
+            return;
+        }
+    
+        alert('Form submitted successfully!');
+        document.querySelector('#kycForm').reset();
+    });
+    
+    $(document).ready(function() {
+        // Initialize Select2 for the city dropdown
+        $('#city').select2({
+            placeholder: "Search for a city",
+            allowClear: true
+        });
+    
+        // Sample city data for demonstration
+        const cities = [
+            'New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'San Francisco', 'Boston', 'Miami', 'Dallas', 'Washington D.C.'
+        ];
+    
+        cities.forEach(city => {
+            $('#city').append(new Option(city, city));
+        });
+    
+        // Show input field for 'Other' identity proof when selected
+        $('input[name="identityProof"]').change(function() {
+            if ($(this).val() === 'Other') {
+                $('#otherIdentityProof').show();
+            } else {
+                $('#otherIdentityProof').hide();
+            }
+        });
+    });
+    // Handle Drag and Drop
+    const fileUploadArea = document.getElementById('file-upload');
+    const fileInput = document.getElementById('file-input');
+    
+    // Show the dragover feedback when files are dragged over the drop area
+    fileUploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      fileUploadArea.classList.add('dragover');
+    });
+    
+    // Remove the dragover feedback when the files are dragged out
+    fileUploadArea.addEventListener('dragleave', () => {
+      fileUploadArea.classList.remove('dragover');
+    });
+    
+    // Handle the drop event
+    fileUploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      fileUploadArea.classList.remove('dragover');
+      const files = e.dataTransfer.files;
+      fileInput.files = files;  // Assign the dropped files to the file input
+      alert(`${files.length} files uploaded successfully!`);
+    });
+    
+    // Open the file dialog when the user clicks the area
+    fileUploadArea.addEventListener('click', () => {
+      fileInput.click();
+    });
+    
+    // Display the file(s) selected
+    fileInput.addEventListener('change', () => {
+      const files = fileInput.files;
+      alert(`${files.length} file(s) selected.`);
+    });
+    // Initialize canvas for signature drawing
+    const canvas = document.getElementById("signature");
+    const context = canvas.getContext("2d");
+    let isDrawing = false;
+    
+    canvas.addEventListener("mousedown", startDrawing);
+    canvas.addEventListener("mousemove", draw);
+    canvas.addEventListener("mouseup", stopDrawing);
+    canvas.addEventListener("mouseout", stopDrawing);
+    
+    function startDrawing(e) {
+      isDrawing = true;
+      context.beginPath();
+      context.moveTo(e.offsetX, e.offsetY);
+    }
+    
+    function draw(e) {
+      if (!isDrawing) return;
+      context.lineTo(e.offsetX, e.offsetY);
+      context.stroke();
+    }
+    
+    function stopDrawing() {
+      if (!isDrawing) return;
+      isDrawing = false;
+      context.closePath();
+    }
+    
+    // Clear signature on button click
+    document.getElementById("clear-signature").addEventListener("click", function() {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+    });
+    
+    
+
+  </script>
+
+
+</body>
+</html>
+
