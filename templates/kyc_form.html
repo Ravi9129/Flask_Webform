@@ -458,9 +458,8 @@ fieldset {
             <label>
               <input type="radio" name="identityProof" value="Passport"> Passport
             </label>
-            <input type="text" id="pan" name="pan" placeholder="Enter your identity number" required>
-            <label>
           </div>
+          <input type="file" id="id_proof" name="id_proof" required />
         </div>
         
         <!-- Address Details Section -->
@@ -493,7 +492,7 @@ fieldset {
     <!-- Phone Number Section -->
     <div class="form-group">
       <label for="phone">2. Phone Number</label>
-      <input type="tel" id="phone" name="phone" placeholder="(000) 000-0000" required pattern="(\d{3}) \d{3}-\d{4}">
+      <input type="tel" id="phone" name="phone" placeholder="9129868608" >
       <small>Please enter a valid phone number.</small>
     </div>
   
@@ -508,9 +507,9 @@ fieldset {
       <label>4. Proof of Address to be Provided by Applicant</label>
       <div class="checkbox-group">
         <label><input type="checkbox" name="proof-address" value="passport"> Passport</label><br>
-        <label><input type="checkbox" name="proof-address" value="driving-license"> UID </label><br>
-    
+        <label><input type="checkbox" name="proof-address" value="driving-license"> Driving License</label><br>
       </div>
+      <input type="file" id="address_proof" name="address_proof" required />
     </div>
   
 
