@@ -1,7 +1,6 @@
-from flask import Flask, render_template, request, redirect, jsonify
+from flask import Flask, render_template, request, jsonify
 import os
 import psycopg2
-from psycopg2 import sql
 from werkzeug.utils import secure_filename
 
 # Initialize Flask app
@@ -15,11 +14,11 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # PostgreSQL connection details
 DB_CONFIG = {
-    'host': "postgresql-db-kyc.postgres.database.azure.com",
+    'host': "localhost",
     'port': "5432",
-    'database': "postgres",
-    'user': "amit_user",
-    'password': "xyz"
+    'database': "Kycform",
+    'user': "postgres",
+    'password': "Ravi123"
 }
 
 # Connect to PostgreSQL
